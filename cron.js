@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
 //runs once every day at 11:30 PM UTC
 scheduler.scheduleJob('30 23 * * * *', () => {
     CronRequest.find({ isDeleted: false }).then(crArr => crArr.map(cr =>
-        Axios.post(process.env.API_URL, {
+        Axios.get(process.env.API_URL, {
             user_id: cr.user,
             scrape_type: cr.type,
             item_name: cr.item
